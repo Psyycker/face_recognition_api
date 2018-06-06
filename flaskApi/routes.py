@@ -1,5 +1,6 @@
 from flask import render_template, request, jsonify
-from src import app
+from flaskApi import app
+from runServer import  indexManager
 import face_recognition
 import threading
 import time
@@ -40,6 +41,9 @@ def import_picture_page():
         'import_picture.html'
     )
 
+
+
+
 @app.route('/submit_picture' , methods=['POST'])
 def submit_picture():
     picture = request.files['file']
@@ -58,8 +62,10 @@ def submit_picture():
 
     extension = splitted[len(splitted) - 1]
 
+    picture.save("tmp/650" + str(indexManager.index) + '/' + username + '.' + extension)
 
-    picture.save("queue/" + username + '.'+ extension)
+    indexManager.increaseIndex()
+
 
 
 

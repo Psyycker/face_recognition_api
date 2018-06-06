@@ -1,12 +1,13 @@
 from PIL import Image
 import face_recognition
 import numpy
+import os
 
-def find_faces(pictureName, temporary):
+def find_faces(image, pictureName):
     # Load the jpg file into a numpy array
-    image = face_recognition.load_image_file(temporary)
+    #image = face_recognition.load_image_file("queue/" + temporary)
 
-
+    #os.remove("queue/" + temporary)
 
 
     # Find all the faces in the image using a pre-trained convolutional neural network.
@@ -18,7 +19,7 @@ def find_faces(pictureName, temporary):
     print("Scanning picture....")
     face_locations = face_recognition.face_locations(image, number_of_times_to_upsample=0, model="cnn")
 
-    rotation = 0;
+    rotation = 0
 
     if len(face_locations) == 0:
         print("No face found, rotating picture")
@@ -66,3 +67,5 @@ def find_faces(pictureName, temporary):
         print("Rotation {}".format(rotation))
         pil_image = pil_image.rotate(rotation)
         pil_image.save("pictures/" + pictureName)
+
+

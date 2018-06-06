@@ -1,9 +1,9 @@
 from flask import render_template, request, jsonify
 from src import app
-from src import find_faces_in_picture_cnn
 import face_recognition
-import numpy
-from PIL import Image
+import threading
+import time
+
 
 
 
@@ -31,7 +31,6 @@ def home():
 
 @app.route("/toto")
 def toto():
-    find_faces_in_picture_cnn.find_faces("pic2.jpg")
     return "yolo"
 
 
@@ -43,13 +42,7 @@ def import_picture_page():
 
 @app.route('/submit_picture' , methods=['POST'])
 def submit_picture():
-
-
-
     picture = request.files['file']
-
-
-
     if 'file' not in request.files:
         return "No file uploaded"
 
@@ -66,9 +59,8 @@ def submit_picture():
     extension = splitted[len(splitted) - 1]
 
 
-    picture.save(username + '_tmp.' + extension)
+    picture.save("queue/" + username + '.'+ extension)
 
-    find_faces_in_picture_cnn.find_faces(username + '.' + extension, username + '_tmp.' + extension)
 
 
 

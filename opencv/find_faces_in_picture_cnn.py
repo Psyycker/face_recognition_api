@@ -66,6 +66,23 @@ def find_faces(image, pictureName):
         pil_image = Image.fromarray(face_image)
         print("Rotation {}".format(rotation))
         pil_image = pil_image.rotate(rotation)
-        pil_image.save("pictures/" + pictureName)
+
+        splittedPictureName = str.split(pictureName, '.')
+
+        splittedPictureName.remove(splittedPictureName[len(splittedPictureName) - 1])
+
+        username = str.join('.', splittedPictureName)
+
+        print("Le nom d'utilisateur : ")
+        print(username)
+
+        if not os.path.exists("pictures/" + username):
+            os.mkdir("pictures/" + username)
+
+
+        files = os.listdir("pictures/" + username)
+
+
+        pil_image.save("pictures/" + username + '/' + str(len(files) + 1) +  pictureName)
 
 

@@ -56,10 +56,5 @@ def main():
 
 
 
-
-    #threading.Thread(target=startThreadManager).start()
-    #Process(target=startThreadManager).start()
-
-
 if __name__ == '__main__':
     main()
